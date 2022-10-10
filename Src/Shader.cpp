@@ -12,7 +12,8 @@ Shader::Shader(std::string FileName):
 
 Shader::~Shader()
 {
-    GLCall(glDeleteShader(m_RendererID));
+    glDeleteShader(m_RendererID);
+  
 }
 
 int Shader::CreateShader(const std::string& VertexShader, const std::string& FragmentShader)
@@ -100,9 +101,7 @@ void Shader::UnBind() const
 }
 
 void Shader::SetUniform4f(const std::string& Name, float v0, float v1, float v2, float v3)
-{
-
-    unsigned int location = GetUniformlocation(Name);
+{ 
     GLCall(glUniform4f(GetUniformlocation(Name), v0, v1, v2, v3));
 }
 
@@ -121,17 +120,17 @@ void Shader::SetUniformMat4(const std::string& Name, glm::mat4 &Martix)
     GLCall(glUniformMatrix4fv(GetUniformlocation(Name), 1,GL_FALSE,&Martix[0][0]));
 }
 
-int Shader::GetUniformlocation(const std::string& Name)
+int Shader::GetUniformlocation(const std::string& Name)const
 {
     if (m_UniformLocation.find(Name) != m_UniformLocation.end())
     {
         return m_UniformLocation[Name];
     }
    
-    int location = glGetUniformLocation(m_RendererID, Name.c_str());
+    GLint location = glGetUniformLocation(m_RendererID, Name.c_str());
     if (location == -1) 
     {
-        std::cout << "shader Location =-1  you can't ues it"<<Name<<std::endl;
+        std::cout << "shader Location =-1  you can't use it "<<Name<<std::endl;
     }
     else
     {

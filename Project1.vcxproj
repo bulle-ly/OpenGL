@@ -84,13 +84,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>D:\Opencv\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\Opencv\opencv\build\include;D:\Opencv\opencv\build\include\opencv2;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\Opencv\opencv\build\include;D:\Opencv\opencv\build\include\opencv2;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\Assimp\include</IncludePath>
     <ReferencePath>$(VC_ReferencesPath_x64);</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <LibraryPath>D:\Opencv\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\Opencv\opencv\build\include;D:\Opencv\opencv\build\include\opencv2;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\Opencv\opencv\build\include;D:\Opencv\opencv\build\include\opencv2;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\Assimp\include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -136,8 +136,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies);opengl32.lib;glew32s.lib;opencv_world450d.lib;opencv_world450.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies);opengl32.lib;glew32s.lib;opencv_world450d.lib;opencv_world450.lib;assimp-vc142-mt.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib\Release\x64;$(SolutionDir)Dependencies\Assimp\lib\Release</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;LIBCMT.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -156,16 +156,19 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies);opengl32.lib;glew32s.lib;opencv_world450d.lib;opencv_world450.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib\Release\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies);opengl32.lib;glew32s.lib;opencv_world450d.lib;opencv_world450.lib;assimp-vc142-mt.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib-vc2019;$(SolutionDir)Dependencies\GLEW\lib\Release\x64;$(SolutionDir)Dependencies\Assimp\lib\Release</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;LIBCMT.lib</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ModelTest.cpp" />
+    <ClCompile Include="Src\Camera.cpp" />
     <ClCompile Include="Src\GameTimer.cpp" />
     <ClCompile Include="Src\Shader.cpp" />
     <ClCompile Include="Src\IndexBuffer.cpp" />
     <ClCompile Include="Src\Renderer.cpp" />
+    <ClCompile Include="Src\test\TestTexture.cpp" />
     <ClCompile Include="Src\vendor\glm\detail\glm.cpp" />
     <ClCompile Include="Src\vendor\Imgui\imgui.cpp" />
     <ClCompile Include="Src\vendor\Imgui\imgui_demo.cpp" />
@@ -179,9 +182,9 @@
     <ClCompile Include="Src\VertexArray.cpp" />
     <ClCompile Include="Src\VertexBufferLayout.cpp" />
     <ClCompile Include="Src\Texture.cpp" />
-    <ClCompile Include="Src\源.cpp" />
     <ClCompile Include="Src\test\TestClearColor.cpp" />
     <ClCompile Include="Src\test\Test.cpp" />
+    <ClCompile Include="Src\源.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shader\Shader.shader" />
@@ -323,10 +326,14 @@
     <None Include="Src\vendor\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dependencies\Assimp\include\assimp\config.h" />
+    <ClInclude Include="Src\ModelTest.h" />
+    <ClInclude Include="Src\Camera.h" />
     <ClInclude Include="Src\GameTimer.h" />
     <ClInclude Include="Src\Shader.h" />
     <ClInclude Include="Src\IndexBuffer.h" />
     <ClInclude Include="Src\Renderer.h" />
+    <ClInclude Include="Src\test\TestTexture.h" />
     <ClInclude Include="Src\vendor\glm\common.hpp" />
     <ClInclude Include="Src\vendor\glm\detail\compute_common.hpp" />
     <ClInclude Include="Src\vendor\glm\detail\compute_vector_relational.hpp" />
@@ -628,7 +635,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Texture\Snow.jpg" />
-    <Image Include="Src\Snow.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

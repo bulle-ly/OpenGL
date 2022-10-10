@@ -18,15 +18,13 @@ class Shader
 private:
     std::string m_FileName;
     unsigned int m_RendererID;
-    std::unordered_map<std::string, int> m_UniformLocation;
+    mutable std::unordered_map<std::string, int> m_UniformLocation;
 public:
     Shader(std::string FileName);
     ~Shader();
     
     
-    int CreateShader(const std::string& VertexShader, const std::string& FragmentShader);
-    unsigned int  ComplieShader(unsigned int Type, const std::string& source);
-    ShaderResource ParseShader();
+    
 
     void Bind()const;
     void UnBind()const;
@@ -35,6 +33,11 @@ public:
     void SetUniform1i(const std::string& Name,int value);
     void SetUniform1f(const std::string& Name, int value);
     void SetUniformMat4(const std::string& Name, glm::mat4& Martix);
-    int GetUniformlocation(const std::string &Name);
+    
+    private:
+        int GetUniformlocation(const std::string &Name) const;
+		int CreateShader(const std::string& VertexShader, const std::string& FragmentShader);
+		unsigned int  ComplieShader(unsigned int Type, const std::string& source);
+		ShaderResource ParseShader();
 };
 

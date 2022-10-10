@@ -42,9 +42,6 @@
     <ClCompile Include="Src\vendor\glm\detail\glm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Src\源.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Src\vendor\Imgui\imgui.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -66,13 +63,25 @@
     <ClCompile Include="Src\vendor\Imgui\imgui_widgets.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test\Test.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="test\TestClearColor.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Src\GameTimer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\test\TestClearColor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\test\Test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\test\TestTexture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\源.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ModelTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1385,21 +1394,30 @@
     <ClInclude Include="Src\vendor\Imgui\imstb_truetype.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="test\Test.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="test\TestClearColor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Src\GameTimer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\test\TestClearColor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\test\Test.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\test\TestTexture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Dependencies\Assimp\include\assimp\config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ModelTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Texture\Snow.jpg">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="Src\Snow.jpg">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
