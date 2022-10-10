@@ -24,7 +24,10 @@ public:
     ~Shader();
     
     
-    
+    int CreateShader(const std::string& VertexShader, const std::string& FragmentShader);
+    unsigned int  ComplieShader(unsigned int Type, const std::string& source);
+    ShaderResource ParseShader();
+
 
     void Bind()const;
     void UnBind()const;

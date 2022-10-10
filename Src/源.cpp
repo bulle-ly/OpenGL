@@ -31,10 +31,10 @@
 int main()
 {
     GLFWwindow* window;
-    
+
     /* Initialize the library */
     if (!glfwInit())
-        return -1; 
+        return -1;
 
     const char* glsl_version = "#version 150";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -42,7 +42,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
    /* Create a windowed mode window and its OpenGL context */
   
-
+    
     
     window = glfwCreateWindow(920, 780, "Hello World", NULL, NULL);
     if (!window)
@@ -64,8 +64,53 @@ int main()
         return -1;
 
     }
+    float positions[] = {
+        -50.0f,-50.0f,0.0f,0.0f,
+         50.0f,-50.0f,1.0f,0.0f,
+         50.0f, 50.0f,1.0f,1.0f,
+        -50.0f, 50.0f,0.0f,1.0f
+    };
 
+    unsigned int indecies[]=
+    {
+        0,1,2,
+        2,3,0
+    };
+  
 
+    glm::mat4 proj = glm::ortho(0.0f, 640.0f, 0.f, 480.0f, -1.0f, 1.0f);
+   
+    VertexArray va;
+    VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+    VertexBufferLayout layout;
+    layout.Push <float>(2);
+    layout.Push <float>(2);
+    va.AddBuffer(vb, layout);
+  
+
+    IndexBuffer  ib(indecies,6);
+   
+    
+    Shader shader("res/Shader/Shader.shader");
+    shader.Bind();
+   
+    Texture tex("res/Texture/Snow.jpg");
+    tex.Bind();
+    
+    
+    float r = 1.0f;
+    float inscream = 0.05f;
+   
+    //返回-1意味着这个值没有使用过
+
+    va.UnBind();
+    vb.UnBindbuffer();
+    ib.UnBindbuffer();
+    shader.UnBind();
+    Renderer renderer;
+    
+  
+    //imgui初始化
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(window, true); 
     ImGui::StyleColorsDark();
@@ -106,12 +151,13 @@ int main()
         /* Render here */
         renerder.Clear();
         
-        
-        
+       
+
+        renderer.Clear();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        
+
         camera.ProcessMouseMovement(xoffset, yoffset);
         if (currentTest)
         {
@@ -119,37 +165,57 @@ int main()
             currentTest->OnRender();
             ImGui::Begin("Test");
             if (currentTest != testMeau && ImGui::Button("<-"))
-            {
+        {
                 delete currentTest;
                 currentTest = testMeau;
-            }
+        }
             currentTest->OnImguiRender();
             ImGui::End();
         }
-		
-       
-        
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
+
+
+
+        if (r > 0.5)
+            inscream = -0.5f;
+        else inscream = 0.5f;
+
+        r += inscream;
+
+        static float f = 0.0f;
+        static int counter = 0;
+
         ImGui::Render();
-      
+
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         /* Swap front and back buffers */
+        
 
-      
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
 
     }
-       
-        
-        
+
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::End();
+    
+
         if (currentTest != testMeau)
             delete testMeau;
         delete  currentTest;
-    
-    
-    
+
+        va.UnBind();
+        vb.UnBindbuffer();
+        ib.UnBindbuffer();
+        shader.UnBind();
+        glfwSwapBuffers(window);
+
+        /* Poll for and process events */
+        glfwPollEvents();
+    }
+
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

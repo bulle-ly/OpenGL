@@ -186,6 +186,8 @@
     <ClCompile Include="Src\test\TestClearColor.cpp" />
     <ClCompile Include="Src\test\Test.cpp" />
     <ClCompile Include="Src\源.cpp" />
+    <ClCompile Include="test\TestClearColor.cpp" />
+    <ClCompile Include="test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shader\Shader.shader" />

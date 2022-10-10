@@ -42,6 +42,9 @@
     <ClCompile Include="Src\vendor\glm\detail\glm.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Src\源.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="Src\vendor\Imgui\imgui.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
