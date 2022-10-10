@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Mesh.cpp" />
     <ClCompile Include="Src\ModelTest.cpp" />
     <ClCompile Include="Src\Camera.cpp" />
     <ClCompile Include="Src\GameTimer.cpp" />
@@ -327,6 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\Assimp\include\assimp\config.h" />
+    <ClInclude Include="Src\Mesh.h" />
     <ClInclude Include="Src\ModelTest.h" />
     <ClInclude Include="Src\Camera.h" />
     <ClInclude Include="Src\GameTimer.h" />

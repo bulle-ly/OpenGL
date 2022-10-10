@@ -84,6 +84,9 @@
     <ClCompile Include="Src\ModelTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Mesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shader\Shader.shader" />
@@ -1413,6 +1416,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\ModelTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Mesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

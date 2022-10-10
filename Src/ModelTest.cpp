@@ -25,6 +25,7 @@ void ModelTest::ProcessNode(aiNode* node, const aiScene* scene)
 	for (unsigned int i=0;i<node->mNumMeshes;i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+	
 		this->meshs.push_back(this->ProcessMesh(mesh, scene));
 	}
 	for (unsigned int i = 0; i<node->mNumChildren;i++)
@@ -33,7 +34,7 @@ void ModelTest::ProcessNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-void ModelTest::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+Mesh ModelTest::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
 
 }
