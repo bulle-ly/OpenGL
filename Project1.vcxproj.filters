@@ -75,9 +75,6 @@
     <ClCompile Include="Src\test\Test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Src\test\TestTexture.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Src\源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -88,6 +85,15 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Src\Mesh.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\TestClearColor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test\Test.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\test\TestTexture.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1409,9 +1415,6 @@
     <ClInclude Include="Src\test\Test.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Src\test\TestTexture.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -1422,6 +1425,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Src\Mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\test\TestTexture.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

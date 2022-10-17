@@ -64,49 +64,12 @@ int main()
         return -1;
 
     }
-    float positions[] = {
-        -50.0f,-50.0f,0.0f,0.0f,
-         50.0f,-50.0f,1.0f,0.0f,
-         50.0f, 50.0f,1.0f,1.0f,
-        -50.0f, 50.0f,0.0f,1.0f
-    };
-
-    unsigned int indecies[]=
-    {
-        0,1,2,
-        2,3,0
-    };
-  
-
-    glm::mat4 proj = glm::ortho(0.0f, 640.0f, 0.f, 480.0f, -1.0f, 1.0f);
-   
-    VertexArray va;
-    VertexBuffer vb(positions, 4 * 4 * sizeof(float));
-    VertexBufferLayout layout;
-    layout.Push <float>(2);
-    layout.Push <float>(2);
-    va.AddBuffer(vb, layout);
-  
-
-    IndexBuffer  ib(indecies,6);
-   
-    
-    Shader shader("res/Shader/Shader.shader");
-    shader.Bind();
-   
-    Texture tex("res/Texture/Snow.jpg");
-    tex.Bind();
-    
-    
     float r = 1.0f;
     float inscream = 0.05f;
    
     //返回-1意味着这个值没有使用过
 
-    va.UnBind();
-    vb.UnBindbuffer();
-    ib.UnBindbuffer();
-    shader.UnBind();
+   
     Renderer renderer;
     
   
@@ -130,23 +93,10 @@ int main()
 	Camera camera;//使用当前window
 
 	ImGuiIO& io = ImGui::GetIO();
-    
-	float LastMousePosX = io.MouseClickedPos->x;
-	float LastMousePosY = io.MouseClickedPos->y;
-	float xoffset;
-	float yoffset;
-	float CurMousePosX;
-	float CurMousePosY;
+   
     while (!glfwWindowShouldClose(window))
     {
-		 CurMousePosX = io.MouseClickedPos->x;
-		 CurMousePosY = io.MouseClickedPos->y;
-        
-
-         xoffset = CurMousePosX - LastMousePosX;
-         yoffset = CurMousePosY - LastMousePosY;
-         LastMousePosX = CurMousePosX;
-         LastMousePosY = CurMousePosY;
+		
         GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
         /* Render here */
         renerder.Clear();
@@ -158,7 +108,7 @@ int main()
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        camera.ProcessMouseMovement(xoffset, yoffset);
+       
         if (currentTest)
         {
             currentTest->OnUpdate(0.0f);
@@ -206,15 +156,11 @@ int main()
             delete testMeau;
         delete  currentTest;
 
-        va.UnBind();
-        vb.UnBindbuffer();
-        ib.UnBindbuffer();
-        shader.UnBind();
+  
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
-    }
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

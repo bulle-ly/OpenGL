@@ -39,7 +39,7 @@ namespace test {
 
 		m_IBO = std::make_unique<IndexBuffer>(indecies, 6);
 
-		m_Texture = std::make_unique<Texture>("res/Texture/Snow.jpg");
+		m_Texture = std::make_unique<Texture>("res/Texture/Snow.jpg",Texture::TextureType_AMBIENT);
 		
 		m_Shader = std::make_unique<Shader>("res/Shader/Shader.shader");
 		

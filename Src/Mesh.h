@@ -15,8 +15,16 @@ struct  Vertex
 class Mesh
 {
 public:
+	Mesh(std::vector<Vertex> vertices,
+	std::vector<unsigned int> indices,
+		std::vector<Texture> texture);
+	
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices; 
+	std::vector<Texture> texture;
+
+	void setupMesh();
+	
 private:
 	std::unique_ptr<VertexArray>		m_VAO;
 	std::unique_ptr <IndexBuffer>		m_IBO;

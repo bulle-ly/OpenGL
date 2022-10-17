@@ -1,8 +1,9 @@
 #include "Texture.h"
 #include"stb_image/stb_image.h"
-Texture::Texture(std::string FileName):
+Texture::Texture(std::string FileName,TextureType type):
 	m_RendererID(0),m_FilePath(FileName),
-	m_LocalBuffer(nullptr),m_Width(0),m_Height(0),m_BPP(0)
+	m_LocalBuffer(nullptr),m_Width(0),m_Height(0),m_BPP(0),
+	type(type)
 {
 	stbi_set_flip_vertically_on_load(1);//设置读入时候翻转纹理
 	m_LocalBuffer = stbi_load(FileName.c_str(),&m_Width,&m_Height,&m_BPP,4);

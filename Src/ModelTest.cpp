@@ -36,5 +36,63 @@ void ModelTest::ProcessNode(aiNode* node, const aiScene* scene)
 
 Mesh ModelTest::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 {
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> texture;
 
+	for (unsigned int i=0;i<mesh->mNumVertices;i++)
+	{
+		Vertex vertex;
+
+		glm::vec3 vector;
+		vector.x = mesh->mVertices[i].x;
+		vector.y = mesh->mVertices[i].y;
+		vector.z = mesh->mVertices[i].z;
+		vertex.Position = vector;
+
+		vector.x = mesh->mNormals[i].x;
+		vector.y = mesh->mNormals[i].y;
+		vector.z = mesh->mNormals[i].z;
+		vertex.Normal = vector;
+
+		if (mesh->mTextureCoords[0])
+		{
+			glm::vec2 vec;
+			vec.x = mesh->mTextureCoords[0]->x;
+			vec.y = mesh->mTextureCoords[0]->y;
+			vertex.TexCoord = vec;
+		}
+		else
+		{
+			vertex.TexCoord = glm::vec2(0.0f, 0.0f);
+		}
+		vertices.push_back(vertex);
+	}
+	//¶¥µã
+	for (unsigned int i =0;i<mesh->mNumFaces;i++)
+	{
+		aiFace face = mesh->mFaces[i];
+		for (unsigned int i=0;i<face.mNumIndices;i++)
+		{
+			indices.push_back(face.mIndices[i]);
+		}
+	}
+
+	return Mesh(vertices, indices, texture);
+
+}
+
+
+std::vector<Texture> ModelTest::loadMaterialTexture(aiMaterial* mat, aiTextureType type, std::string typeName)
+{
+	std::vector<Texture> textures;
+	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+	{
+		aiString str;
+		mat->GetTexture(type, i, &str);
+		std::string str1 = str.C_Str();
+		Texture texture(str1,(Texture::TextureType)type);
+		textures.push_back(texture);
+	}
+	return textures;
 }
