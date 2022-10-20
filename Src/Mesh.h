@@ -25,8 +25,14 @@ public:
 
 	void setupMesh();//≥ı ºªØ
 	
+	void Draw();
+
+	glm::vec3	m_translationA;
+	glm::vec3	m_translationB;
+	glm::mat4	m_View;
+	glm::mat4	m_Proj;
+public:
 	
-private:
 	std::unique_ptr<VertexArray>		m_VAO;
 	std::unique_ptr <IndexBuffer>		m_IBO;
 	std::unique_ptr <Shader>			m_Shader;

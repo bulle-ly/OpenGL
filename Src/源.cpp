@@ -30,6 +30,8 @@
 #include <ModelTest.h>
 
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 int main()
 {
     GLFWwindow* window;
@@ -55,20 +57,14 @@ int main()
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
-
-
-
     glfwSwapInterval(1);
-
+   
     if (GLEW_OK != glewInit())
     {
         std::cout << "error";
         return -1;
 
     }
-    float r = 1.0f;
-    float inscream = 0.05f;
-   
     //返回-1意味着这个值没有使用过
 
    
@@ -80,9 +76,8 @@ int main()
     ImGui_ImplGlfw_InitForOpenGL(window, true); 
     ImGui::StyleColorsDark();
     ImGui_ImplOpenGL3_Init(glsl_version);
-    float x = 20.0f;
-    float y = 20.0f;
-    glEnable(GL_DEPTH_TEST);
+   
+   /* glEnable(GL_DEPTH_TEST);*/ // 开启前注意模型位置归到屏幕面前
     test::TestClearColor test;
     test::Test* currentTest = nullptr;//基类指针
     test::TestMeau* testMeau = new test::TestMeau(currentTest);//基类指针指向父类
@@ -128,18 +123,6 @@ int main()
             ImGui::End();
         }
         //glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
-
-        if (r > 0.5)
-            inscream = -0.5f;
-        else inscream = 0.5f;
-
-        r += inscream;
-
-        static float f = 0.0f;
-        static int counter = 0;
-
         ImGui::Render();
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

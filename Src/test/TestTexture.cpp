@@ -6,18 +6,18 @@
 #include "glm/gtc/matrix_transform.hpp"
 namespace test {
 	TestTexture::TestTexture()
-		:m_translationA(200, 200, 0), m_translationB(400, 200, 0),
-		m_Proj(glm::ortho(0.0f, 640.0f, 0.f, 480.0f, -1.0f, 1.0f)),
-		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
-		m_Model(glm::mat4(1.0f))
+		:m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 720.0f, -1.0f, 1.0f)),
+		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0))),
+		m_translationA(glm::vec3(200, 200, 0)), m_translationB(glm::vec3(400, 200, 0))
 	{		
 		
 		
-		float positions[] = {
-	   -250.0f,-250.0f,0.0f,0.0f,
-		250.0f,-250.0f,1.0f,0.0f,
-		250.0f, 250.0f,1.0f,1.0f,
-	   -250.0f, 250.0f,0.0f,1.0f
+		float positions[] = 
+		{
+		100.0f, 100.0f, 0.0f, 0.0f, // 0
+		200.0f, 100.0f, 1.0f, 0.0f,  // 1
+		200.0f, 200.0f, 1.0f, 1.0f,    // 2
+		100.0f, 200.0f, 0.0f, 1.0f   // 3
 		};
 
 		unsigned int indecies[] =
@@ -26,27 +26,30 @@ namespace test {
 			2,3,0
 		};
 
+		GLCall(glEnable(GL_BLEND));
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+			
 		m_VAO = std::make_unique<VertexArray>();
 		
 		
 		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
 		
-		m_VertexBufferLayout = std::make_unique<VertexBufferLayout>();
-		m_VertexBufferLayout->Push<float>(2);//坐标
-		m_VertexBufferLayout->Push<float>(2);//纹理坐标
+		VertexBufferLayout layout;
+		layout.Push<float>(2);//坐标
+		layout.Push<float>(2);//纹理坐标
 		
-		m_VAO->AddBuffer(*m_VertexBuffer, *m_VertexBufferLayout);
+		m_VAO->AddBuffer(*m_VertexBuffer, layout);
 
 		m_IBO = std::make_unique<IndexBuffer>(indecies, 6);
 
-		m_Texture = std::make_unique<Texture>("res/Texture/Snow.jpg",Texture::TextureType_AMBIENT);
-		
 		m_Shader = std::make_unique<Shader>("res/Shader/Shader.shader");
 		
-		m_Shader->Bind();
-		//m_Shader->SetUniform4f("u_Color", 0.0f, 0.0f, 1.0f, 1.0f);
 		
-
+		m_Shader->Bind();
+		m_Shader->SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+		m_Shader->SetUniform1i("u_Texture", 0);
+		m_Texture = std::make_unique<Texture>("res/Texture/Snow.jpg", Texture::TextureType_AMBIENT);
 
 	}
 	TestTexture::~TestTexture()
@@ -59,16 +62,16 @@ namespace test {
 	}
 	void TestTexture::OnRender()
 	{
-		GLCall(glClearColor(0.0f,0.0f,0.0f,1.0f));
+		GLCall(glClearColor(1.0f,0.0f,0.0f,1.0f));
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
 		Renderer renderer;
 		m_Texture->Bind();
 		{
-			m_Model = glm::translate(glm::mat4(1.0f), m_translationA);
-			glm::mat4	mvp = m_Proj * m_View * m_Model;
+			glm::mat4 Model = glm::translate(glm::mat4(1.0f), m_translationA);
+			glm::mat4	mvp = m_Proj * m_View * Model;
 			m_Shader->Bind();
-			m_Shader->SetUniform1i("u_Texture", 0);
+			
 			m_Shader->SetUniformMat4("u_Mvp", mvp);
 			renderer.Draw(*m_VAO, *m_IBO, *m_Shader);
 		}
@@ -76,7 +79,7 @@ namespace test {
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translationB);
 			glm::mat4	mvp = m_Proj * m_View * model;
 			m_Shader->Bind();
-			m_Shader->SetUniform1i("u_Texture", 0);
+			
 			m_Shader->SetUniformMat4("u_Mvp", mvp);
 			renderer.Draw(*m_VAO, *m_IBO, *m_Shader);
 		}
@@ -85,8 +88,8 @@ namespace test {
 	void TestTexture::OnImguiRender()
 	{
 
-		ImGui::SliderFloat3("TranslationA", &m_translationA.x, 0.0f, 640.0f);
-		ImGui::SliderFloat3("TranslationB", &m_translationB.x, 0.0f, 640.0f);
+		ImGui::SliderFloat3("TranslationA", &m_translationA.x, 0.0f, 960.0f);
+		ImGui::SliderFloat3("TranslationB", &m_translationB.x, 0.0f, 960.0f);
 		/*float color[4] = { 0.3f,0.3f,0.5f,1.0f };
 		ImGui::ColorEdit4("Clear Color", color);*/
 	}

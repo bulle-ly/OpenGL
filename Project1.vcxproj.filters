@@ -507,6 +507,7 @@
     <None Include="Src\vendor\glm\gtx\wrap.inl">
       <Filter>头文件</Filter>
     </None>
+    <None Include="res\Shader\ModelShader.shader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Renderer.h">

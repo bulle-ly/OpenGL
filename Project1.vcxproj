@@ -131,7 +131,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC;;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>Src\vendor;Src;</AdditionalIncludeDirectories>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -190,6 +190,7 @@
     <ClCompile Include="test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\Shader\ModelShader.shader" />
     <None Include="res\Shader\Shader.shader" />
     <None Include="Src\vendor\glm\detail\func_common.inl" />
     <None Include="Src\vendor\glm\detail\func_common_simd.inl" />
