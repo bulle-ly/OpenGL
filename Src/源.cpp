@@ -26,6 +26,8 @@
 #include <assimp/scene.h>           // Output data structure
 #include <assimp/postprocess.h> 
 #include "Camera.h"
+#include <Mesh.h>
+#include <ModelTest.h>
 
 
 int main()
@@ -87,7 +89,9 @@ int main()
      currentTest = testMeau;
     testMeau->RegisterTest<test::TestClearColor>("ClearColor");
     testMeau->RegisterTest<test::TestTexture>("Texture");
+    testMeau->RegisterTest<test::ModelTest>("Model");
     Renderer renerder;
+ 
     /* Loop until the user closes the window */
 	   //创建相机类
 	Camera camera;//使用当前window
@@ -111,6 +115,7 @@ int main()
        
         if (currentTest)
         {
+            
             currentTest->OnUpdate(0.0f);
             currentTest->OnRender();
             ImGui::Begin("Test");

@@ -32,8 +32,8 @@ namespace test {
 		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
 		
 		m_VertexBufferLayout = std::make_unique<VertexBufferLayout>();
-		m_VertexBufferLayout->Push<float>(2);
-		m_VertexBufferLayout->Push<float>(2);
+		m_VertexBufferLayout->Push<float>(2);//×ø±ê
+		m_VertexBufferLayout->Push<float>(2);//ÎÆÀí×ø±ê
 		
 		m_VAO->AddBuffer(*m_VertexBuffer, *m_VertexBufferLayout);
 

@@ -23,7 +23,8 @@ public:
 	std::vector<unsigned int> indices; 
 	std::vector<Texture> texture;
 
-	void setupMesh();
+	void setupMesh();//≥ı ºªØ
+	
 	
 private:
 	std::unique_ptr<VertexArray>		m_VAO;

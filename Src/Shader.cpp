@@ -112,7 +112,7 @@ void Shader::SetUniform1i(const std::string& Name, int value)
     GLCall(glUniform1i(GetUniformlocation(Name), value));
 }
 
-void Shader::SetUniform1f(const std::string& Name, int value)
+void Shader::SetUniform1f(const std::string& Name, float value)
 {
     GLCall(glUniform1f(GetUniformlocation(Name), value));
 }
