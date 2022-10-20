@@ -1,7 +1,8 @@
 #include "Texture.h"
 #include"stb_image/stb_image.h"
-Texture::Texture(std::string FileName,TextureType type):
-	m_RendererID(0),m_FilePath(FileName),
+Texture::Texture(std::string FileName, TextureType type):
+	m_RendererID(0),
+	m_FilePath(FileName),
 	m_LocalBuffer(nullptr),m_Width(0),m_Height(0),m_BPP(0),
 	type(type)
 {

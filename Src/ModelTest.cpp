@@ -1,25 +1,12 @@
 #include "ModelTest.h"
 #include "mesh.h"
+#include "Imgui/imgui.h"
 #include <iostream>
 
 namespace	test {
 	ModelTest::ModelTest(std::string path)
-
 	{
 		LoadModel(path);
-
-		m_VertexBuffer = std::make_unique<VertexBuffer>(&meshs[0].vertices[0], meshs[0].vertices.size() * sizeof(Vertex));
-		m_IBO = std::make_unique<IndexBuffer>(&meshs[0].indices[0], meshs[0].indices.size());
-
-
-		m_VertexBufferLayout = std::make_unique<VertexBufferLayout>();
-		m_VertexBufferLayout->Push<float>(3);//顶点
-		m_VertexBufferLayout->Push<float>(3);//法线
-		m_VertexBufferLayout->Push<float>(2);//纹理坐标
-
-		m_VAO->AddBuffer(*m_VertexBuffer, *m_VertexBufferLayout);
-
-		m_Shader = std::make_unique<Shader>("res/Shader/Shader.shader");
 	}
 
 	void ModelTest::OnUpdate(float deltaTime)
@@ -29,17 +16,23 @@ namespace	test {
 
 	void ModelTest::OnRender()
 	{
-		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-		GLCall(glClear(GL_COLOR_BUFFER_BIT));
-		Renderer renderer;
-
-		m_Shader->Bind();
-		renderer.Draw(*m_VAO, *m_IBO, *m_Shader);
+		
+		for (unsigned int i=0;i<meshs.size();i++)
+		{
+			meshs[i].Draw();
+		}
 	}
-
+	
 	void ModelTest::OnImguiRender()
 	{
-
+		ImGui::SliderFloat3("TranslationA", &meshs[0].m_translationA.x, 0.0f, 640.0f);
+		ImGui::SliderFloat3("TranslationB", &meshs[0].m_translationB.x, 0.0f, 640.0f);
+		for (unsigned int i = 0; i < meshs.size(); i++)
+		{
+			meshs[i].m_translationA.x = meshs[0].m_translationA.x;
+			meshs[i].m_translationB.x = meshs[0].m_translationB.x;
+		}
+		
 	}
 
 	void ModelTest::LoadModel(std::string path)
@@ -48,7 +41,7 @@ namespace	test {
 		const aiScene* secene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 		if (!secene || secene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !secene->mRootNode)
 		{
-			std::cout << "Error" << importer.GetErrorString();
+			std::cout << "Error to Load" << importer.GetErrorString();
 			return;
 		}
 		this->Directory = path.substr(0, path.find_last_of('/'));
@@ -73,7 +66,7 @@ namespace	test {
 	{
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
-		std::vector<Texture> texture;
+		std::vector<Texture> textures;
 
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 		{
@@ -112,19 +105,31 @@ namespace	test {
 				indices.push_back(face.mIndices[i]);
 			}
 		}
+		if (mesh->mMaterialIndex>=0)
+		{
+			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+			std::vector<Texture> diffuseMaps = this->loadMaterialTexture(material,aiTextureType_DIFFUSE);
 
-		return Mesh(vertices, indices, texture);
+			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+
+			std::vector<Texture> specularMaps = this->loadMaterialTexture(material, aiTextureType_SPECULAR);
+
+			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
+		}
+
+		return Mesh(vertices, indices, textures);
 
 	}
 
 
-	std::vector<Texture> ModelTest::loadMaterialTexture(aiMaterial* mat, aiTextureType type, std::string typeName)
+	std::vector<Texture> ModelTest::loadMaterialTexture(aiMaterial* mat, aiTextureType type)
 	{
 		std::vector<Texture> textures;
 		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;
-			mat->GetTexture(type, i, &str);
+			unsigned int id= mat->GetTexture(type, i, &str);
 			std::string str1 = str.C_Str();
 			Texture texture(str1, (Texture::TextureType)type);
 			textures.push_back(texture);

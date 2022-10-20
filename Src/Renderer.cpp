@@ -22,9 +22,10 @@ bool GLCallLog(const char* Function, const char* file, int line)
 
 void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib  , const Shader& shader) const
 {
+    shader.Bind();
     va.Bind();
     ib.BindBuffer();
-    shader.Bind();
+   
     //shader.SetUniform4f("u_Color", 0.3, 0.3, 0.3, 1);
     GLCall(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
 }

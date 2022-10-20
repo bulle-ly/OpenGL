@@ -9,8 +9,9 @@
 #include "test/Test.h"
 namespace test {
 
-	class ModelTest :public  Test
+	class ModelTest :public  Test 
 	{
+		friend class Mesh;
 	public:
 		ModelTest(std::string path = "res\\Model\\Bread.stl");
 		void	OnUpdate(float deltaTime)override;
@@ -23,17 +24,9 @@ namespace test {
 		void LoadModel(std::string path);
 		void ProcessNode(aiNode* node, const aiScene* scene);
 		Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-		std::vector<Texture> loadMaterialTexture(aiMaterial* mat, aiTextureType type, std::string typeName);
+		std::vector<Texture> loadMaterialTexture(aiMaterial* mat, aiTextureType type);
 
-	protected:
-
-	private:
-		std::unique_ptr<VertexArray>		m_VAO;
-		std::unique_ptr <IndexBuffer>		m_IBO;
-		std::unique_ptr <Shader>			m_Shader;
-		std::unique_ptr<Texture>			m_Texture;
-		std::unique_ptr<VertexBuffer>		m_VertexBuffer;
-		std::unique_ptr<VertexBufferLayout> m_VertexBufferLayout;
+	
 	};
 
 }

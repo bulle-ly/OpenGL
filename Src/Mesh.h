@@ -19,14 +19,20 @@ public:
 	std::vector<unsigned int> indices,
 		std::vector<Texture> texture);
 	
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices; 
-	std::vector<Texture> texture;
+	std::vector<Vertex> vertices = std::vector<Vertex> (1e5);
+	std::vector<unsigned int> indices = std::vector<unsigned int> (1e5); 
+	std::vector<Texture> textures;
 
 	void setupMesh();//≥ı ºªØ
 	
+	void Draw();
+
+	glm::vec3	m_translationA;
+	glm::vec3	m_translationB;
+	glm::mat4	m_View;
+	glm::mat4	m_Proj;
+public:
 	
-private:
 	std::unique_ptr<VertexArray>		m_VAO;
 	std::unique_ptr <IndexBuffer>		m_IBO;
 	std::unique_ptr <Shader>			m_Shader;

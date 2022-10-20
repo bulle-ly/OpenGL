@@ -51,7 +51,8 @@ public:
 		Yaw = yaw;
 		Pitch = pitch;
 		updateCameraVectors();
-
+		//m_ViewPortHeight = ImGui::GetContentRegionAvail().x;
+		//m_ViewPortWeight = ImGui::GetContentRegionAvail().y;
 	};
 	glm::mat4 GetViewMatrix();
 	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
@@ -60,7 +61,8 @@ public:
 	~Camera();
 	
 private:
-
+	uint32_t m_ViewPortHeight;
+	uint32_t m_ViewPortWeight;	
 	void updateCameraVectors();
 };
 
