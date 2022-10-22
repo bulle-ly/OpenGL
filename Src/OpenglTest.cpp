@@ -75,8 +75,12 @@ int main()
     ImGui::StyleColorsDark();
     ImGui_ImplOpenGL3_Init(glsl_version);
    
+
     glEnable(GL_DEPTH_TEST); // 开启前注意模型位置归到屏幕面前
     glDepthFunc(GL_ALWAYS);
+
+   /* glEnable(GL_DEPTH_TEST);*/ // 开启前注意模型位置归到屏幕面前
+
     test::TestClearColor test;
     test::Test* currentTest = nullptr;//基类指针
     test::TestMeau* testMeau = new test::TestMeau(currentTest);//基类指针指向父类
